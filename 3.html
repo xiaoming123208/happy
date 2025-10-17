@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绩点通 - 多功能计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 绩点通</h1>
+            <p>上海财经大学 - 学业绩点分析与科学计算器</p>
+        </header>
+
+        <div class="main-content">
+            <!-- 绩点计算器部分 -->
+            <section class="gpa-section">
+                <h2>学业绩点计算器</h2>
+                
+                <!-- 绩点对照表 -->
+                <div class="gpa-reference">
+                    <h3>上海财经大学绩点对照表</h3>
+                    <div class="reference-table">
+                        <table>
+                            <tr><th>百分制成绩</th><th>绩点</th></tr>
+                            <tr><td>90-100</td><td>4.0</td></tr>
+                            <tr><td>85-89</td><td>3.7</td></tr>
+                            <tr><td>82-84</td><td>3.3</td></tr>
+                            <tr><td>78-81</td><td>3.0</td></tr>
+                            <tr><td>75-77</td><td>2.7</td></tr>
+                            <tr><td>72-74</td><td>2.3</td></tr>
+                            <tr><td>68-71</td><td>2.0</td></tr>
+                            <tr><td>64-67</td><td>1.7</td></tr>
+                            <tr><td>60-63</td><td>1.0</td></tr>
+                            <tr><td>0-59</td><td>0.0</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 课程信息管理 -->
+                <div class="course-management">
+                    <h3>课程信息管理</h3>
+                    <div class="table-container">
+                        <table id="courseTable">
+                            <thead>
+                                <tr>
+                                    <th>课程名称</th>
+                                    <th>学分</th>
+                                    <th>成绩</th>
+                                    <th>绩点</th>
+                                    <th>课程类型</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courseTableBody">
+                                <!-- 动态添加 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <button id="addCourseBtn" class="btn-primary">添加课程</button>
+                </div>
+
+                <!-- 数据管理 -->
+                <div class="data-management">
+                    <h3>数据管理</h3>
+                    <div class="data-buttons">
+                        <button id="saveDataBtn" class="btn-primary">保存当前数据</button>
+                        <button id="loadDataBtn" class="btn-secondary">加载历史数据</button>
+                        <button id="mergeDataBtn" class="btn-secondary">合并数据</button>
+                        <button id="clearDataBtn" class="btn-danger">清空数据</button>
+                    </div>
+                </div>
+
+                <!-- GPA计算选项 -->
+                <div class="gpa-options">
+                    <h3>GPA计算选项</h3>
+                    <div class="options-group">
+                        <label><input type="radio" name="gpaType" value="all" checked> 所有课程</label>
+                        <label><input type="radio" name="gpaType" value="compulsory"> 必修课</label>
+                        <label><input type="radio" name="gpaType" value="major"> 专业课</label>
+                        <label><input type="radio" name="gpaType" value="elective"> 选修课</label>
+                    </div>
+                    <button id="calculateGpaBtn" class="btn-primary">计算GPA</button>
+                </div>
+
+                <!-- 结果显示 -->
+                <div class="result-display" id="resultDisplay" style="display: none;">
+                    <h3>计算结果</h3>
+                    <div id="gpaResult"></div>
+                    <button id="exportBtn" class="btn-secondary">导出结果</button>
+                </div>
+            </section>
+
+            <!-- 科学计算器部分 -->
+            <section class="calculator-section">
+                <h2>科学计算器</h2>
+                
+                <!-- 角度/弧度切换 -->
+                <div class="angle-mode">
+                    <label class="switch">
+                        <input type="checkbox" id="angleModeToggle">
+                        <span class="slider">
+                            <span class="angle">角度</span>
+                            <span class="radian">弧度</span>
+                        </span>
+                    </label>
+                    <span id="currentMode">当前模式：角度</span>
+                </div>
+
+                <!-- 基础计算器 -->
+                <div class="basic-calculator">
+                    <h3>基础计算器</h3>
+                    <div class="calc-display">
+                        <input type="text" id="calcDisplay" readonly value="0">
+                    </div>
+                    <div class="calc-buttons">
+                        <button onclick="clearDisplay()" class="btn-calc">C</button>
+                        <button onclick="deleteLast()" class="btn-calc">⌫</button>
+                        <button onclick="appendToDisplay('%')" class="btn-calc">%</button>
+                        <button onclick="appendToDisplay('/')" class="btn-calc">/</button>
+                        
+                        <button onclick="appendToDisplay('7')" class="btn-calc">7</button>
+                        <button onclick="appendToDisplay('8')" class="btn-calc">8</button>
+                        <button onclick="appendToDisplay('9')" class="btn-calc">9</button>
+                        <button onclick="appendToDisplay('*')" class="btn-calc">×</button>
+                        
+                        <button onclick="appendToDisplay('4')" class="btn-calc">4</button>
+                        <button onclick="appendToDisplay('5')" class="btn-calc">5</button>
+                        <button onclick="appendToDisplay('6')" class="btn-calc">6</button>
+                        <button onclick="appendToDisplay('-')" class="btn-calc">-</button>
+                        
+                        <button onclick="appendToDisplay('1')" class="btn-calc">1</button>
+                        <button onclick="appendToDisplay('2')" class="btn-calc">2</button>
+                        <button onclick="appendToDisplay('3')" class="btn-calc">3</button>
+                        <button onclick="appendToDisplay('+')" class="btn-calc">+</button>
+                        
+                        <button onclick="appendToDisplay('0')" class="btn-calc zero">0</button>
+                        <button onclick="appendToDisplay('.')" class="btn-calc">.</button>
+                        <button onclick="calculate()" class="btn-calc equals">=</button>
+                    </div>
+                </div>
+
+                <!-- 科学计算功能 -->
+                <div class="scientific-functions">
+                    <h3>科学计算</h3>
+                    <div class="sci-buttons">
+                        <button onclick="calculateSin()" class="btn-sci">sin</button>
+                        <button onclick="calculateCos()" class="btn-sci">cos</button>
+                        <button onclick="calculateTan()" class="btn-sci">tan</button>
+                        <button onclick="calculateLog()" class="btn-sci">log</button>
+                        <button onclick="calculateLn()" class="btn-sci">ln</button>
+                        
+                        <button onclick="calculatePower()" class="btn-sci">x^y</button>
+                        <button onclick="calculateSqrt()" class="btn-sci">√</button>
+                        <button onclick="calculateFactorial()" class="btn-sci">n!</button>
+                        <button onclick="addPi()" class="btn-sci">π</button>
+                        <button onclick="addE()" class="btn-sci">e</button>
+                        
+                        <button onclick="calculateSquare()" class="btn-sci">x²</button>
+                        <button onclick="calculateCube()" class="btn-sci">x³</button>
+                        <button onclick="calculateCombination()" class="btn-sci">C(n,m)</button>
+                        <button onclick="calculatePermutation()" class="btn-sci">A(n,m)</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+    <div id="loadModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>选择要加载的数据</h3>
+            <div id="modalDataList"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
